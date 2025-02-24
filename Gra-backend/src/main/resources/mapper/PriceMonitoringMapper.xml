@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yupi.springbootinit.mapper.PriceMonitoringMapper">
+
+    <resultMap id="PriceMonitoringResultMap" type="com.yupi.springbootinit.model.vo.PriceMonitoringResult">
+        <result property="orderDate" column="orderDate" jdbcType="VARCHAR"/>
+        <result property="totalOrderAmount" column="totalOrderAmount" jdbcType="DECIMAL"/>
+        <result property="isAboveThreshold" column="isAboveThreshold" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getPriceMonitoringData" resultMap="PriceMonitoringResultMap">
+        WITH monthsTable AS (
+            SELECT '2024-01' AS month
+        UNION ALL SELECT '2024-02'
+                  UNION ALL SELECT '2024-03'
+                  UNION ALL SELECT '2024-04'
+                  UNION ALL SELECT '2024-05'
+                  UNION ALL SELECT '2024-06'
+                  UNION ALL SELECT '2024-07'
+                  UNION ALL SELECT '2024-08'
+                  UNION ALL SELECT '2024-09'
+                  UNION ALL SELECT '2024-10'
+                  UNION ALL SELECT '2024-11'
+                  UNION ALL SELECT '2024-12'
+                  UNION ALL SELECT '2025-01'
+                  UNION ALL SELECT '2025-02'
+                      )
+        SELECT
+            price_monitoring.monitoring_threshold,
+            monthsTable.month AS orderDate,
+            IFNULL(SUM(customer_orders.order_amount), 0) AS totalOrderAmount,
+            CASE
+                WHEN IFNULL(SUM(customer_orders.order_amount), 0) > price_monitoring.monitoring_threshold
+                    THEN 1 ELSE 0
+                END AS isAboveThreshold
+        FROM
+            monthsTable
+            LEFT JOIN customer_orders ON monthsTable.month = DATE_FORMAT(customer_orders.order_date, '%Y-%m')
+            JOIN regions ON customer_orders.region_id = regions.id
+            JOIN price_monitoring ON regions.id = price_monitoring.region_id
+        WHERE
+            regions.region_name = #{regionName}
+            AND price_monitoring.isDelete = false
+        GROUP BY
+            monthsTable.month, price_monitoring.monitoring_threshold
+        ORDER BY
+            monthsTable.month
+    </select>
+</mapper>

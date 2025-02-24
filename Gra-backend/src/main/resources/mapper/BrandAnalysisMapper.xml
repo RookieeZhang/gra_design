@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yupi.springbootinit.mapper.BrandAnalysisMapper">
+
+    <select id="getSpecSalesByBrand" resultType="com.yupi.springbootinit.model.vo.BrandAnalysisResult$SpecSales">
+        SELECT p.specification, SUM(co.order_amount) AS totalOrderAmount
+        FROM products p
+                 JOIN customer_orders co ON p.id = co.product_id
+        WHERE p.brand = #{brandName}
+        GROUP BY p.specification
+    </select>
+
+    <select id="getRegionSalesByBrand" resultType="com.yupi.springbootinit.model.vo.BrandAnalysisResult$RegionSales">
+        SELECT r.region_name, SUM(co.order_amount) AS totalOrderAmount
+        FROM products p
+                 JOIN customer_orders co ON p.id = co.product_id
+                 JOIN regions r ON co.region_id = r.id
+        WHERE p.brand = #{brandName}
+        GROUP BY r.region_name
+    </select>
+
+</mapper>

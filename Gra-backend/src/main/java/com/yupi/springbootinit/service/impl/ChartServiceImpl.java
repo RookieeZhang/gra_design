@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 数据分析服务实现
+ * 数据(销量）分析服务实现
  */
 @Service
 public class ChartServiceImpl implements ChartService {
@@ -22,7 +22,10 @@ public class ChartServiceImpl implements ChartService {
     @Resource
     private CustomerOrdersMapper customerOrdersMapper;
 
-
+    /**
+     * 传参：根据输入的时间戳计算开始和结束时间
+     * 返回：列表《日期、品牌、规格、区域》
+     */
     @Override
     public List<ChartVO> analyzeByTime(String time) {
         TimeEnum enumByText = TimeEnum.getEnumByText(time);

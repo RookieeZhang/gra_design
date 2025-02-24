@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 时间枚举枚举
+ * 时间枚举
  */
 public enum TimeEnum {
 
