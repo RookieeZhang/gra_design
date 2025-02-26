@@ -3,6 +3,9 @@ package com.yupi.springbootinit.mapper;
 import com.yupi.springbootinit.model.entity.CustomerOrders;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yupi.springbootinit.model.vo.ChartVO;
+import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
+import com.yupi.springbootinit.model.vo.OrderSatisfactionVO;
+import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +26,12 @@ public interface CustomerOrdersMapper extends BaseMapper<CustomerOrders> {
      */
     List<ChartVO> listByTime(Date before, Date now);
 
+    /**
+     * 根据销售渠道分析数据
+     * @param salesChannel
+     * @return
+     */
+    List<OrderSatisfactionVO> listBySalesChannel(String salesChannel);
 }
 
 

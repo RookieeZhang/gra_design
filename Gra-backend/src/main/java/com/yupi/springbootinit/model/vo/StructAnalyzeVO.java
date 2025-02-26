@@ -3,15 +3,10 @@ package com.yupi.springbootinit.model.vo;
 import lombok.Data;
 
 /**
- * 销量-结构分析图表相关数据VO
+ * 客户订足率相关数据VO
  */
 @Data
-public class ChartVO {
-
-    /**
-     * 日期
-     */
-    private String date;
+public class StructAnalyzeVO {
 
     /**
      * 品牌
@@ -32,5 +27,20 @@ public class ChartVO {
      * 区域
      */
     private String region;
+
+    /**
+     * 销售渠道
+     */
+    private String salesChannel;
+
+    /**
+     * 客户类别
+     */
+    private String customerCategory;
+
+    /**
+     * 订货数量
+     */
+    private Integer orderQuantity;
 
 }

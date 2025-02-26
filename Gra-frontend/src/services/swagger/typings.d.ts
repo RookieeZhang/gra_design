@@ -1,4 +1,14 @@
 declare namespace API {
+  type analyzeByCustomerUsingPOSTParams = {
+    /** salesChannel */
+    salesChannel?: string;
+  };
+
+  type analyzeByStructUsingPOSTParams = {
+    /** brand */
+    brand?: string;
+  };
+
   type analyzeByTimeUsingPOSTParams = {
     /** time */
     time?: string;
@@ -22,9 +32,21 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListCustomerAnalyzeVO_ = {
+    code?: number;
+    data?: CustomerAnalyzeVO[];
+    message?: string;
+  };
+
   type BaseResponseListProducts_ = {
     code?: number;
     data?: Products[];
+    message?: string;
+  };
+
+  type BaseResponseListStructAnalyzeVO_ = {
+    code?: number;
+    data?: StructAnalyzeVO[];
     message?: string;
   };
 
@@ -91,6 +113,7 @@ declare namespace API {
   type ChartVO = {
     brand?: string;
     date?: string;
+    priceLevel?: string;
     region?: string;
     specification?: string;
   };
@@ -104,6 +127,18 @@ declare namespace API {
     signature?: string;
     /** timestamp */
     timestamp?: string;
+  };
+
+  type CustomerAnalyzeVO = {
+    brand?: string;
+    customerCategory?: string;
+    deliveryLimit?: number;
+    orderQuantity?: number;
+    orderRate?: number;
+    priceLevel?: string;
+    region?: string;
+    salesChannel?: string;
+    specification?: string;
   };
 
   type DeleteRequest = {
@@ -298,6 +333,16 @@ declare namespace API {
     maxPrice?: number;
     minPrice?: number;
     price_level?: string;
+    specification?: string;
+  };
+
+  type StructAnalyzeVO = {
+    brand?: string;
+    customerCategory?: string;
+    orderQuantity?: number;
+    priceLevel?: string;
+    region?: string;
+    salesChannel?: string;
     specification?: string;
   };
 

@@ -18,7 +18,7 @@
     <sql id="Base_Column_List">
         id,customer_id,product_id,
         region_id,sales_channel,order_date,
-        order_quantity,order_amount
+        order_quantity,order_amount,order_satisfaction_config_id
     </sql>
 
     <select id="listByTime" resultType="com.yupi.springbootinit.model.vo.ChartVO">
@@ -26,10 +26,27 @@
             DATE_FORMAT(order_date, '%Y-%m-%d') AS date,  <!-- 格式化日期为 'yyyy-MM-dd' -->
             products.brand AS brand,
             products.specification AS specification,
+            products.price_level AS priceLevel,
             regions.affiliated_region AS region
         FROM
             customer_orders join products on customer_orders.product_id = products.id join regions on customer_orders.region_id = regions.id
         WHERE
             order_date BETWEEN #{before} AND #{now}
+    </select>
+
+    <select id="listBySalesChannel" resultType="com.yupi.springbootinit.model.vo.OrderSatisfactionVO">
+        SELECT products.brand            AS brand,
+               products.specification    AS specification,
+               products.price_level      AS priceLevel,
+               regions.affiliated_region AS region,
+               sales_channel             AS salesChannel,
+               order_quantity            AS orderQuantity,
+               order_satisfaction_config.delivery_limit AS deliveryLimit,
+               order_satisfaction_config.customer_category AS customerCategory
+        FROM customer_orders
+                 join products on customer_orders.product_id = products.id
+                 join regions on customer_orders.region_id = regions.id
+                 join order_satisfaction_config on customer_orders.order_satisfaction_config_id = order_satisfaction_config.id
+        WHERE sales_channel = #{salesChannel}
     </select>
 </mapper>

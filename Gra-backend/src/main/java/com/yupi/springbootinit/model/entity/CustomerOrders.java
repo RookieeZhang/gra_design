@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 /**
@@ -56,6 +58,16 @@ public class CustomerOrders implements Serializable {
      * 订单金额
      */
     private BigDecimal order_amount;
+
+    /**
+     * 订单订足率配置 ID
+     */
+    private Integer order_satisfaction_config_id;
+
+    /**
+     * 促销活动id
+     */
+    private Integer activity_id;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

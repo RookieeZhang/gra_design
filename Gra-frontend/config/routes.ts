@@ -11,7 +11,11 @@ export default [
   },
   {
     path: '/analyze', name: '分析', icon: '',
-    routes: [{path: '/analyze/time', name: '销量分析', component: './AnalyzeByTime'}]
+    routes: [
+      {path: '/analyze/time', name: '销量分析', component: './AnalyzeByTime'},
+      {path: '/analyze/orderSatisfaction', name: '订足率分析', component: './AnalyzeByOrderSatisfaction'},
+      {path: '/analyze/struct', name: '结构分析', component: './AnalyzeByStruct'}
+    ]
   },
   {
     path: '/admin',

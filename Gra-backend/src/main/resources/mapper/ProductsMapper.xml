@@ -17,4 +17,20 @@
         id,brand,specification,
         price,price_level,current_stock
     </sql>
+
+    <select id="listByStruct" resultType="com.yupi.springbootinit.model.vo.StructAnalyzeVO">
+        SELECT
+            products.brand            AS brand,
+            specification    AS specification,
+            price_level      AS priceLevel,
+            regions.affiliated_region AS region,
+            customer_orders.sales_channel             AS salesChannel,
+            customer_orders.order_quantity            AS orderQuantity,
+            order_satisfaction_config.customer_category AS customerCategory
+        FROM products
+                 join customer_orders on products.id = customer_orders.product_id
+                 join regions on customer_orders.region_id = regions.id
+                 join order_satisfaction_config on customer_orders.order_satisfaction_config_id = order_satisfaction_config.id
+        WHERE products.brand = #{brand}
+    </select>
 </mapper>

@@ -6,6 +6,8 @@ import com.yupi.springbootinit.common.ResultUtils;
 import com.yupi.springbootinit.exception.BusinessException;
 import com.yupi.springbootinit.model.enums.TimeEnum;
 import com.yupi.springbootinit.model.vo.ChartVO;
+import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
+import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
 import com.yupi.springbootinit.service.ChartService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +35,22 @@ public class ChartController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         return ResultUtils.success(chartService.analyzeByTime(time));
+    }
+
+    @PostMapping("/analyzeByCustomer")
+    public BaseResponse<List<CustomerAnalyzeVO>> analyzeByCustomer(String salesChannel) {
+        if (StringUtils.isEmpty(salesChannel)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return ResultUtils.success(chartService.analyzeByCustomer(salesChannel));
+    }
+
+    @PostMapping("/analyzeByStruct")
+    public BaseResponse<List<StructAnalyzeVO>> analyzeByStruct(String brand) {
+        if (StringUtils.isEmpty(brand)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return ResultUtils.success(chartService.analyzeByStruct(brand));
     }
 
 }
