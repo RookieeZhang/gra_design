@@ -44,6 +44,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListRegionMonitorAnalyzeVO_ = {
+    code?: number;
+    data?: RegionMonitorAnalyzeVO[];
+    message?: string;
+  };
+
+  type BaseResponseListString_ = {
+    code?: number;
+    data?: string[];
+    message?: string;
+  };
+
   type BaseResponseListStructAnalyzeVO_ = {
     code?: number;
     data?: StructAnalyzeVO[];
@@ -334,6 +346,13 @@ declare namespace API {
     minPrice?: number;
     price_level?: string;
     specification?: string;
+  };
+
+  type RegionMonitorAnalyzeVO = {
+    date?: string;
+    isOver?: boolean;
+    region?: string;
+    totalOrderAmount?: number;
   };
 
   type StructAnalyzeVO = {

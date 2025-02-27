@@ -7,10 +7,12 @@ import com.yupi.springbootinit.exception.BusinessException;
 import com.yupi.springbootinit.model.enums.TimeEnum;
 import com.yupi.springbootinit.model.vo.ChartVO;
 import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
+import com.yupi.springbootinit.model.vo.RegionMonitorAnalyzeVO;
 import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
 import com.yupi.springbootinit.service.ChartService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,4 +55,13 @@ public class ChartController {
         return ResultUtils.success(chartService.analyzeByStruct(brand));
     }
 
+    @GetMapping("/analyzeByRegion")
+    public BaseResponse<List<RegionMonitorAnalyzeVO>> analyzeByRegion() {
+        return ResultUtils.success(chartService.analyzeByRegion());
+    }
+
+    @GetMapping("/getAllProvince")
+    public BaseResponse<List<String>> getAllProvince() {
+        return ResultUtils.success(chartService.getAllProvince());
+    }
 }

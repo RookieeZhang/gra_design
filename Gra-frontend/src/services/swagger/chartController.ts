@@ -17,6 +17,14 @@ export async function analyzeByCustomerUsingPost(
   });
 }
 
+/** analyzeByRegion GET /api/chart/analyzeByRegion */
+export async function analyzeByRegionUsingGet(options?: { [key: string]: any }) {
+  return request<API.BaseResponseListRegionMonitorAnalyzeVO_>('/api/chart/analyzeByRegion', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** analyzeByStruct POST /api/chart/analyzeByStruct */
 export async function analyzeByStructUsingPost(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -43,6 +51,14 @@ export async function analyzeByTimeUsingPost(
     params: {
       ...params,
     },
+    ...(options || {}),
+  });
+}
+
+/** getAllProvince GET /api/chart/getAllProvince */
+export async function getAllProvinceUsingGet(options?: { [key: string]: any }) {
+  return request<API.BaseResponseListString_>('/api/chart/getAllProvince', {
+    method: 'GET',
     ...(options || {}),
   });
 }

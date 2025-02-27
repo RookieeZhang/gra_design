@@ -2,6 +2,7 @@ package com.yupi.springbootinit.service;
 
 import com.yupi.springbootinit.model.vo.ChartVO;
 import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
+import com.yupi.springbootinit.model.vo.RegionMonitorAnalyzeVO;
 import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
 
 import java.util.List;
@@ -31,4 +32,17 @@ public interface ChartService {
      * @return
      */
     List<StructAnalyzeVO> analyzeByStruct(String brand);
+
+    /**
+     * 根据区域分析数据
+     * @return
+     */
+    List<RegionMonitorAnalyzeVO> analyzeByRegion();
+
+    /**
+     * 获取所有省
+     * @return
+     */
+    List<String> getAllProvince();
+
 }

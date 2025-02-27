@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yupi.springbootinit.mapper.PriceMonitoringMapper">
+
+    <resultMap id="BaseResultMap" type="com.yupi.springbootinit.model.entity.PriceMonitoring">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="region_id" column="region_id" jdbcType="INTEGER"/>
+            <result property="monitoring_threshold" column="monitoring_threshold" jdbcType="DECIMAL"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="creation_time" column="creation_time" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="updater" jdbcType="VARCHAR"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,region_id,monitoring_threshold,
+        creator,creation_time,updater,
+        update_time,isDelete
+    </sql>
+</mapper>

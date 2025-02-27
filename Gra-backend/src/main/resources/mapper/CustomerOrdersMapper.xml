@@ -49,4 +49,21 @@
                  join order_satisfaction_config on customer_orders.order_satisfaction_config_id = order_satisfaction_config.id
         WHERE sales_channel = #{salesChannel}
     </select>
+    <select id="listByRegion" resultType="com.yupi.springbootinit.model.vo.RegionMonitorAnalyzeVO"
+            parameterType="java.lang.String">
+        SELECT
+            DATE_FORMAT(order_date, '%Y-%m-%d') AS date,
+            regions.region_name AS region,
+            SUM(order_amount) AS totalOrderAmount,
+        CASE
+            WHEN MAX(price_monitoring.monitoring_threshold) &lt; SUM(order_amount) THEN '1'
+            ELSE '0'
+        END AS isOver
+        FROM
+            customer_orders
+        JOIN regions ON customer_orders.region_id = regions.id
+        JOIN price_monitoring ON regions.id = price_monitoring.region_id
+        GROUP BY
+            date, region
+    </select>
 </mapper>

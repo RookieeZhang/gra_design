@@ -1,22 +1,25 @@
 package com.yupi.springbootinit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yupi.springbootinit.common.ErrorCode;
 import com.yupi.springbootinit.exception.BusinessException;
 import com.yupi.springbootinit.mapper.CustomerOrdersMapper;
 import com.yupi.springbootinit.mapper.OrderSatisfactionConfigMapper;
 import com.yupi.springbootinit.mapper.ProductsMapper;
+import com.yupi.springbootinit.model.entity.PriceMonitoring;
+import com.yupi.springbootinit.model.entity.Regions;
 import com.yupi.springbootinit.model.enums.TimeEnum;
-import com.yupi.springbootinit.model.vo.ChartVO;
-import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
-import com.yupi.springbootinit.model.vo.OrderSatisfactionVO;
-import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
+import com.yupi.springbootinit.model.vo.*;
 import com.yupi.springbootinit.service.ChartService;
+import com.yupi.springbootinit.service.PriceMonitoringService;
+import com.yupi.springbootinit.service.RegionsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -34,7 +37,10 @@ public class ChartServiceImpl implements ChartService {
     private OrderSatisfactionConfigMapper orderSatisfactionConfigMapper;
     @Resource
     private ProductsMapper productsMapper;
-
+    @Resource
+    private PriceMonitoringService priceMonitoringService;
+    @Resource
+    private RegionsService regionsService;
 
     @Override
     public List<ChartVO> analyzeByTime(String time) {
@@ -70,5 +76,20 @@ public class ChartServiceImpl implements ChartService {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         return productsMapper.listByStruct(brand);
+    }
+
+    @Override
+    public List<RegionMonitorAnalyzeVO> analyzeByRegion() {
+        return customerOrdersMapper.listByRegion();
+    }
+
+    @Override
+    public List<String> getAllProvince() {
+        List<Regions> regionsList = regionsService.list();
+        List<String> provinces = new ArrayList<>();
+        for (Regions regions : regionsList) {
+            provinces.add(regions.getRegion_name());
+        }
+        return provinces;
     }
 }

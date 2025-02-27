@@ -2,6 +2,7 @@ package com.yupi.springbootinit.mapper;
 
 import com.yupi.springbootinit.model.entity.Products;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yupi.springbootinit.model.vo.RegionMonitorAnalyzeVO;
 import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
 
 import java.util.List;
