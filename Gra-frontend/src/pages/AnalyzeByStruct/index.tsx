@@ -9,16 +9,48 @@ const App: React.FC = () => {
   const [selectedBrand, setSelectedBrand] = useState<string>('七匹狼');
   const [selectedFeather, setSelectedFeather] = useState<string>('salesChannel');
   const [datasource, setDatasource] = useState<API.StructAnalyzeVO[]>([]);
+  const [marketingSuggestion, setMarketingSuggestion] = useState<string>('');
   const {Option} = Select;
 
   const getDatasource = async (brand: any) => {
     const res = await analyzeByStructUsingPost({brand: brand})
     if (res.code === 0) {
       setDatasource(res.data)
+      generateMarketingSuggestion(res.data);
     } else {
       message.error(res.message);
     }
   }
+
+  // 生成营销建议的函数
+  const generateMarketingSuggestion = (data: API.StructAnalyzeVO[]) => {
+    // 处理数据以适配销售渠道或客户类别
+    const groupedData = data.reduce((acc, item) => {
+      const key = selectedFeather === 'customerCategory' ? 
+        (item.customerCategory || '未知') : 
+        (item.salesChannel || '未知');
+      
+      if (!acc[key]) {
+        acc[key] = 0;
+      }
+      acc[key] += Number(item.orderQuantity || 0);
+      return acc;
+    }, {} as Record<string, number>);
+
+    // 将分组数据转换为数组并按销量降序排序
+    const sortedData = Object.entries(groupedData)
+      .map(([key, value]) => ({ key, value }))
+      .sort((a, b) => b.value - a.value);
+
+    // 取销量最高的项作为建议
+    if (sortedData.length > 0) {
+      const topItem = sortedData[0];
+      const suggestion = `建议加大${selectedBrand}对${topItem.key}的市场推广力度，销量为${topItem.value}。`;
+      setMarketingSuggestion(suggestion);
+    } else {
+      setMarketingSuggestion('没有可用的销售数据。');
+    }
+  };
 
   // 添加调试信息
   useEffect(() => {
@@ -27,6 +59,11 @@ const App: React.FC = () => {
   useEffect(() => {
     getDatasource("七匹狼") // Populate the form with the current datasource values
   }, []);
+
+  useEffect(() => {
+    // 当 selectedFeather 变化时，重新生成营销建议
+    generateMarketingSuggestion(datasource);
+  }, [selectedFeather, datasource]);
 
   // 处理数据以适配饼状图
   const processData = () => {
@@ -169,7 +206,6 @@ const App: React.FC = () => {
             <Option value="黄鹤楼">黄鹤楼</Option>
           </Select>
 
-
           <Button.Group>
             <Button
               type={selectedFeather === 'salesChannel' ? 'primary' : 'default'}
@@ -192,6 +228,10 @@ const App: React.FC = () => {
           <div style={{ flex: 1 }}>
             {renderBarChart()}
           </div>
+        </div>
+        <div style={{ marginTop: 20, fontSize: '16px', color: '#333' }}>
+          <strong>营销建议:</strong>
+          <p>{marketingSuggestion}</p>
         </div>
       </div>
     </>

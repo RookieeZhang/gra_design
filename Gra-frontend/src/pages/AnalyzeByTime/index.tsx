@@ -21,11 +21,14 @@ const App: React.FC = () => {
       const date = item.date || '';
       const featherValue = item[selectedFeather as keyof API.ChartVO] || '';
 
-      if (!countMap.has(date)) {
-        countMap.set(date, new Map());
+      // 如果选择的是去年，则将日期转换为月份
+      const month = selectedTimeRange === 'lastYear' ? new Date(date).toLocaleString('default', { month: 'long' }) : date;
+
+      if (!countMap.has(month)) {
+        countMap.set(month, new Map());
       }
 
-      const dateMap = countMap.get(date)!;
+      const dateMap = countMap.get(month)!;
       dateMap.set(featherValue, (dateMap.get(featherValue) || 0) + 1);
     });
 
