@@ -96,24 +96,20 @@ const App: React.FC = () => {
       const newData = processDetailData(datasource, selectedBrand, detailType);
       setDetailData(newData);
     }
-  }, [isModalVisible, selectedBrand, detailType]);
+  }, [isModalVisible, selectedBrand, detailType, datasource]);
 
   // 修改点击事件处理
   const handleBarClick = (event: any, currentFeather: string) => {
+    console.log('Event data:', event); // 添加调试信息，查看 event 对象
+
     if (currentFeather !== 'brand') {
       return;
     }
 
-    const clickedData = event.data?.data;
-    if (clickedData) {
-      const brand = clickedData[currentFeather];
-      if (brand) {
-        setSelectedBrand(brand);
-        const initialData = processDetailData(datasource, brand, 'specification');
-        setDetailData(initialData);
-        setDetailType('specification');
-        setIsModalVisible(true);
-      }
+    const brand = event.name; // 从 event 中获取品牌名称
+    if (brand) {
+      setSelectedBrand(brand);
+      setIsModalVisible(true); // 确保模态框在这里被设置为可见
     }
   };
 
