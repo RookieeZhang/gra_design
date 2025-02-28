@@ -41,4 +41,11 @@ public interface ProductsService extends IService<Products> {
      * @return
      */
     Boolean deleteById(Long id);
+
+    /**
+     * 根据品牌获取库存
+     * @param brand
+     * @return
+     */
+    Integer getStorageByBrand(String brand);
 }

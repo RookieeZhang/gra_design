@@ -35,6 +35,13 @@ public interface CustomerOrdersMapper extends BaseMapper<CustomerOrders> {
      * @return
      */
     List<RegionMonitorAnalyzeVO> listByRegion();
+
+    /**
+     * 根据品牌获取
+     * @param brand
+     * @return
+     */
+    List<String> listOrderQuantityByBrand(String brand);
 }
 
 

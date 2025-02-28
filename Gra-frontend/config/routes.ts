@@ -16,6 +16,7 @@ export default [
       {path: '/analyze/orderSatisfaction', name: '订足率分析', component: './AnalyzeByOrderSatisfaction'},
       {path: '/analyze/struct', name: '结构分析', component: './AnalyzeByStruct'},
       {path: '/analyze/region', name: '地区监测', component: './AnalyzeByRegionMonitor'},
+      {path: '/analyze/predict', name: '销售预测', component: './AnalyzeByPredict'},
     ]
   },
   {

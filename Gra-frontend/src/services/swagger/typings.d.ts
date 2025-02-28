@@ -4,6 +4,11 @@ declare namespace API {
     salesChannel?: string;
   };
 
+  type analyzeByPredictUsingPOSTParams = {
+    /** brand */
+    brand?: string;
+  };
+
   type analyzeByStructUsingPOSTParams = {
     /** brand */
     brand?: string;
@@ -35,6 +40,12 @@ declare namespace API {
   type BaseResponseListCustomerAnalyzeVO_ = {
     code?: number;
     data?: CustomerAnalyzeVO[];
+    message?: string;
+  };
+
+  type BaseResponseListPredictVO_ = {
+    code?: number;
+    data?: PredictVO[];
     message?: string;
   };
 
@@ -160,6 +171,11 @@ declare namespace API {
   type getPostVOByIdUsingGETParams = {
     /** id */
     id?: number;
+  };
+
+  type getStorageByBrandUsingGETParams = {
+    /** brand */
+    brand?: string;
   };
 
   type getUserByIdUsingGETParams = {
@@ -318,6 +334,11 @@ declare namespace API {
     updateTime?: string;
     user?: UserVO;
     userId?: number;
+  };
+
+  type PredictVO = {
+    date?: string;
+    sales?: number;
   };
 
   type Products = {

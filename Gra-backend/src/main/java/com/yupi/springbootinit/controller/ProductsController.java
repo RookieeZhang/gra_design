@@ -12,6 +12,7 @@ import com.yupi.springbootinit.model.dto.products.ProductsSearchRequest;
 import com.yupi.springbootinit.model.entity.Products;
 import com.yupi.springbootinit.service.ProductsService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -65,5 +66,13 @@ public class ProductsController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         return ResultUtils.success(productsService.deleteById(deleteRequest.getId()));
+    }
+
+    @GetMapping("/getByBrand")
+    public BaseResponse<Integer> getStorageByBrand(String brand) {
+        if (StringUtils.isEmpty(brand)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return ResultUtils.success(productsService.getStorageByBrand(brand));
     }
 }

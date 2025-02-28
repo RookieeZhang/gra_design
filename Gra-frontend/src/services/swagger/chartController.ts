@@ -17,6 +17,21 @@ export async function analyzeByCustomerUsingPost(
   });
 }
 
+/** analyzeByPredict POST /api/chart/analyzeByPredict */
+export async function analyzeByPredictUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.analyzeByPredictUsingPOSTParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseListPredictVO_>('/api/chart/analyzeByPredict', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** analyzeByRegion GET /api/chart/analyzeByRegion */
 export async function analyzeByRegionUsingGet(options?: { [key: string]: any }) {
   return request<API.BaseResponseListRegionMonitorAnalyzeVO_>('/api/chart/analyzeByRegion', {

@@ -22,6 +22,12 @@ public interface ProductsMapper extends BaseMapper<Products> {
      */
     List<StructAnalyzeVO> listByStruct(String brand);
 
+    /**
+     * 根据品牌获取库存
+     * @param brand
+     * @return
+     */
+    Integer getStorageByBrand(String brand);
 }
 
 

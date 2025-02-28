@@ -33,4 +33,13 @@
                  join order_satisfaction_config on customer_orders.order_satisfaction_config_id = order_satisfaction_config.id
         WHERE products.brand = #{brand}
     </select>
+    <select id="getStorageByBrand" resultType="java.lang.Integer">
+        SELECT
+            SUM(current_stock)
+        FROM products
+        WHERE
+            brand = #{brand}
+        GROUP BY
+            brand
+    </select>
 </mapper>

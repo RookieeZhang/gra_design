@@ -11,8 +11,10 @@ import com.yupi.springbootinit.model.entity.Products;
 import com.yupi.springbootinit.service.CustomerOrdersService;
 import com.yupi.springbootinit.service.ProductsService;
 import com.yupi.springbootinit.mapper.ProductsMapper;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -32,6 +34,8 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products>
 
     @Resource
     private CustomerOrdersService customerOrdersService;
+    @Resource
+    private ProductsMapper productsMapper;
 
     @Override
     public List<Products> listProducts(ProductsSearchRequest productsSearchRequest) {
@@ -101,6 +105,14 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products>
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "该烟草产品存在于销售记录中，无法删除");
         }
         return this.removeById(id);
+    }
+
+    @Override
+    public Integer getStorageByBrand(String brand) {
+        if (StringUtils.isEmpty(brand)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return productsMapper.getStorageByBrand(brand);
     }
 }
 

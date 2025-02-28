@@ -1,9 +1,6 @@
 package com.yupi.springbootinit.service;
 
-import com.yupi.springbootinit.model.vo.ChartVO;
-import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
-import com.yupi.springbootinit.model.vo.RegionMonitorAnalyzeVO;
-import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
+import com.yupi.springbootinit.model.vo.*;
 
 import java.util.List;
 
@@ -45,4 +42,10 @@ public interface ChartService {
      */
     List<String> getAllProvince();
 
+    /**
+     * 根据预测分析数据
+     * @param brand
+     * @return
+     */
+    List<PredictVO> analyzeByPredict(String brand);
 }

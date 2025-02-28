@@ -5,10 +5,7 @@ import com.yupi.springbootinit.common.ErrorCode;
 import com.yupi.springbootinit.common.ResultUtils;
 import com.yupi.springbootinit.exception.BusinessException;
 import com.yupi.springbootinit.model.enums.TimeEnum;
-import com.yupi.springbootinit.model.vo.ChartVO;
-import com.yupi.springbootinit.model.vo.CustomerAnalyzeVO;
-import com.yupi.springbootinit.model.vo.RegionMonitorAnalyzeVO;
-import com.yupi.springbootinit.model.vo.StructAnalyzeVO;
+import com.yupi.springbootinit.model.vo.*;
 import com.yupi.springbootinit.service.ChartService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -63,5 +60,13 @@ public class ChartController {
     @GetMapping("/getAllProvince")
     public BaseResponse<List<String>> getAllProvince() {
         return ResultUtils.success(chartService.getAllProvince());
+    }
+
+    @PostMapping("/analyzeByPredict")
+    public BaseResponse<List<PredictVO>> analyzeByPredict(String brand) {
+        if (StringUtils.isEmpty(brand)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return ResultUtils.success(chartService.analyzeByPredict(brand));
     }
 }

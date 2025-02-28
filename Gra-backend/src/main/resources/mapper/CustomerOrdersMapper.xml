@@ -66,4 +66,19 @@
         GROUP BY
             date, region
     </select>
+    <select id="listOrderQuantityByBrand" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT SUM(order_quantity) AS orderQuantity
+        FROM customer_orders
+                 join products on customer_orders.product_id = products.id
+        WHERE products.brand = #{brand}
+          AND order_date >= CURDATE() - INTERVAL 12 MONTH
+        GROUP BY
+            EXTRACT(YEAR FROM order_date),
+            EXTRACT(MONTH FROM order_date)
+        ORDER BY
+            EXTRACT(YEAR FROM order_date) DESC,
+            EXTRACT(MONTH FROM order_date) DESC;
+    </select>
+
+
 </mapper>
