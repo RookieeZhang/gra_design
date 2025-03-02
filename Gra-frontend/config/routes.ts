@@ -7,7 +7,11 @@ export default [
   // {path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome'},
   {
     path: '/manage', name: '管理', icon: '',
-    routes: [{path: '/manage/product', name: '烟草管理', component: './Product'}]
+    access: 'canAdmin',
+    routes: [
+      {path: '/manage/product', name: '烟草管理', component: './Product'},
+      {path: '/manage/user', name: '用户管理', component: './UserManager'},
+    ]
   },
   {
     path: '/analyze', name: '分析', icon: '',
@@ -17,13 +21,14 @@ export default [
       {path: '/analyze/struct', name: '结构分析', component: './AnalyzeByStruct'},
       {path: '/analyze/region', name: '地区监测', component: './AnalyzeByRegionMonitor'},
       {path: '/analyze/predict', name: '销售预测', component: './AnalyzeByPredict'},
+      {path: '/analyze/roi', name: 'ROI分析', component: './AnalyzeByROI'},
     ]
   },
   {
     path: '/admin',
     name: '管理页',
     icon: 'crown',
-    access: 'canAdmin',
+    access: '0',
     routes: [
       {path: '/admin', redirect: '/admin/sub-page'},
       {path: '/admin/sub-page', name: '二级管理页', component: './Admin'},

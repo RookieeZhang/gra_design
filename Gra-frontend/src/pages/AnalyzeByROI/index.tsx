@@ -101,7 +101,20 @@ const App: React.FC = () => {
   console.log('Chart Data:', chartData);
 
   // 找到 ROI 最高的活动
-  const highestROIActivity = chartData.reduce((prev, current) => (prev.ROI > current.ROI) ? prev : current, chartData[0]);
+  const highestROIActivity = chartData.length > 0 
+    ? chartData.reduce((prev, current) => (prev.ROI > current.ROI) ? prev : current) 
+    : null;
+
+  // 文本模板数组
+  const textTemplates = [
+    `本次【${highestROIActivity?.activityName}】节日促销活动，投入[${highestROIActivity?.activityCost}]元，活动期间销售额为[${highestROIActivity?.orderAmount}]元，经计算ROI达[${highestROIActivity?.ROI}]%，实现了高投入产出比，成功提升品牌知名度与产品销量，后续可参考该模式优化拓展。`,
+    `在本次【${highestROIActivity?.activityName}】促销活动中，投入[${highestROIActivity?.activityCost}]元，销售额达到[${highestROIActivity?.orderAmount}]元，ROI为[${highestROIActivity?.ROI}]%，展现了良好的市场反响。`,
+    `通过本次【${highestROIActivity?.activityName}】活动，投入[${highestROIActivity?.activityCost}]元，销售额为[${highestROIActivity?.orderAmount}]元，ROI达到了[${highestROIActivity?.ROI}]%，为品牌带来了显著的收益。`,
+    `本次【${highestROIActivity?.activityName}】活动的投入为[${highestROIActivity?.activityCost}]元，活动期间销售额为[${highestROIActivity?.orderAmount}]元，ROI计算为[${highestROIActivity?.ROI}]%，成功提升了品牌的市场份额。`,
+  ];
+
+  // 随机选择一个文本模板
+  const randomText = highestROIActivity ? textTemplates[Math.floor(Math.random() * textTemplates.length)] : '';
 
   return (
     <>
@@ -126,19 +139,21 @@ const App: React.FC = () => {
           />
         </div>
         {/* 添加文本信息 */}
-        <div style={{ marginTop: 20 }}>
-          <div style={{ 
-            border: '1px solid #d9d9d9', 
-            borderRadius: '4px', 
-            padding: '10px', 
-            backgroundColor: '#f7f7f7', 
-            marginTop: '10px', 
-            fontSize: '16px', 
-            fontWeight: 'bold' 
-          }}>
-            本次【{highestROIActivity.activityName}】节日促销活动，投入[{highestROIActivity.activityCost}]元，活动期间销售额为[{highestROIActivity.orderAmount}]元，经计算ROI达[{highestROIActivity.ROI}]%，实现了高投入产出比，成功提升品牌知名度与产品销量，后续可参考该模式优化拓展。
+        {highestROIActivity && (
+          <div style={{ marginTop: 20 }}>
+            <div style={{ 
+              border: '1px solid #d9d9d9', 
+              borderRadius: '4px', 
+              padding: '10px', 
+              backgroundColor: '#f7f7f7', 
+              marginTop: '10px', 
+              fontSize: '16px', 
+              fontWeight: 'bold' 
+            }}>
+              {randomText}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
