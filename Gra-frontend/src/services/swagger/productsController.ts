@@ -47,6 +47,21 @@ export async function editProductsUsingPost(
   });
 }
 
+/** getStorageByBrand GET /api/products/getByBrand */
+export async function getStorageByBrandUsingGet(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getStorageByBrandUsingGETParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseInt_>('/api/products/getByBrand', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** listProducts POST /api/products/list */
 export async function listProductsUsingPost(
   body: API.ProductsSearchRequest,

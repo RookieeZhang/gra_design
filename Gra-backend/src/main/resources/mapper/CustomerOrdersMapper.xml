@@ -79,6 +79,29 @@
             EXTRACT(YEAR FROM order_date) DESC,
             EXTRACT(MONTH FROM order_date) DESC;
     </select>
+    <select id="getROIbyBrand" resultType="com.yupi.springbootinit.model.vo.ROIVO">
+        SELECT
+            SUM(order_amount) AS orderAmount,
+            promotion_activities.start_date AS startDate,
+            promotion_activities.end_date AS endDate,
+            promotion_activities.activity_cost AS activityCost,
+            promotion_activities.activity_name AS activityName
+        FROM
+            customer_orders
+                JOIN
+            products ON customer_orders.product_id = products.id
+                JOIN
+            promotion_activities ON customer_orders.activity_id = promotion_activities.id
+        WHERE
+            products.brand = #{brand}
+        GROUP BY
+            startDate,
+            endDate,
+            activityCost,
+            activity_Name
+        ORDER BY
+            startDate
+    </select>
 
 
 </mapper>

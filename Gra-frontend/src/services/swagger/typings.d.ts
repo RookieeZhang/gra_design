@@ -9,6 +9,11 @@ declare namespace API {
     brand?: string;
   };
 
+  type analyzeByROIUsingPOSTParams = {
+    /** brand */
+    brand?: string;
+  };
+
   type analyzeByStructUsingPOSTParams = {
     /** brand */
     brand?: string;
@@ -58,6 +63,12 @@ declare namespace API {
   type BaseResponseListRegionMonitorAnalyzeVO_ = {
     code?: number;
     data?: RegionMonitorAnalyzeVO[];
+    message?: string;
+  };
+
+  type BaseResponseListROIVO_ = {
+    code?: number;
+    data?: ROIVO[];
     message?: string;
   };
 
@@ -374,6 +385,15 @@ declare namespace API {
     isOver?: boolean;
     region?: string;
     totalOrderAmount?: number;
+  };
+
+  type ROIVO = {
+    activityCost?: number;
+    activityName?: string;
+    endDate?: string;
+    orderAmount?: number;
+    roi?: number;
+    startDate?: string;
   };
 
   type StructAnalyzeVO = {

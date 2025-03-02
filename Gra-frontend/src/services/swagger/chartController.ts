@@ -40,6 +40,21 @@ export async function analyzeByRegionUsingGet(options?: { [key: string]: any }) 
   });
 }
 
+/** analyzeByROI POST /api/chart/analyzeByROI */
+export async function analyzeByRoiUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.analyzeByROIUsingPOSTParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseListROIVO_>('/api/chart/analyzeByROI', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** analyzeByStruct POST /api/chart/analyzeByStruct */
 export async function analyzeByStructUsingPost(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

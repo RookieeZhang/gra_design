@@ -170,4 +170,16 @@ public class ChartServiceImpl implements ChartService {
         }
         return predictVOS;
     }
+
+    @Override
+    public List<ROIVO> analyzeByROI(String brand) {
+        if (StringUtils.isEmpty(brand)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        List<ROIVO> ROIList = customerOrdersMapper.getROIbyBrand(brand);
+        for (ROIVO roivo : ROIList) {
+            roivo.setROI((double)roivo.getOrderAmount()/ (double)roivo.getActivityCost() * 100);
+        }
+        return ROIList;
+    }
 }

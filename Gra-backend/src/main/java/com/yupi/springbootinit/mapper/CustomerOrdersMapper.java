@@ -42,6 +42,13 @@ public interface CustomerOrdersMapper extends BaseMapper<CustomerOrders> {
      * @return
      */
     List<String> listOrderQuantityByBrand(String brand);
+
+    /**
+     * 根据品牌获取ROI数据
+     * @param brand
+     * @return
+     */
+    List<ROIVO> getROIbyBrand(String brand);
 }
 
 

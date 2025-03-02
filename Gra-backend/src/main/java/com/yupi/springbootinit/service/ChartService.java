@@ -48,4 +48,11 @@ public interface ChartService {
      * @return
      */
     List<PredictVO> analyzeByPredict(String brand);
+
+    /**
+     * 根据品牌分析ROI
+     * @param brand
+     * @return
+     */
+    List<ROIVO> analyzeByROI(String brand);
 }

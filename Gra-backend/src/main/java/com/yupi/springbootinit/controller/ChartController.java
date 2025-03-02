@@ -69,4 +69,12 @@ public class ChartController {
         }
         return ResultUtils.success(chartService.analyzeByPredict(brand));
     }
+
+    @PostMapping("/analyzeByROI")
+    public BaseResponse<List<ROIVO>> analyzeByROI(String brand) {
+        if (StringUtils.isEmpty(brand)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return ResultUtils.success(chartService.analyzeByROI(brand));
+    }
 }
